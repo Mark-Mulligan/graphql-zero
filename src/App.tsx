@@ -1,10 +1,10 @@
-import Users from './pages/Users';
-import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
   return (
     <div>
-      <Users />
+      <h1>App</h1>
+      <Link to="/posts">View Posts</Link>
     </div>
   );
 }
