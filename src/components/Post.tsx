@@ -16,6 +16,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // Custom Types
 import { IPost, IComment } from '../types/customTypes';
@@ -25,6 +27,7 @@ const GET_POST_COMMENTS = gql`
     post(id: $id) {
       comments {
         data {
+          id
           body
           email
         }
@@ -48,12 +51,11 @@ interface IProps {
 const Post: FC<IProps> = ({ post }) => {
   const [showComments, setShowComments] = useState(false);
 
-  const [getPostComments, commentData] = useLazyQuery<PostCommentData>(GET_POST_COMMENTS);
+  const [getPostComments, { loading, error, data }] = useLazyQuery<PostCommentData>(GET_POST_COMMENTS);
 
   const commentsClick = () => {
     setShowComments(!showComments);
     getPostComments({ variables: { id: post.id } });
-    console.log(commentData.data);
   };
 
   return (
@@ -74,23 +76,29 @@ const Post: FC<IProps> = ({ post }) => {
       <Collapse in={showComments} timeout="auto" unmountOnExit>
         <CardContent>
           <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {commentData.data?.post.comments.data.map((comment, index) => {
-              return (
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar alt={comment.email}>{comment.email[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={comment.email}
-                    secondary={
-                      <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
-                        {comment.body}
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              );
-            })}
+            {loading ? (
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100px' }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              data?.post.comments.data.map((comment) => {
+                return (
+                  <ListItem alignItems="flex-start" key={comment.id}>
+                    <ListItemAvatar>
+                      <Avatar alt={comment.email}>{comment.email[0]}</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={comment.email}
+                      secondary={
+                        <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                          {comment.body}
+                        </Typography>
+                      }
+                    />
+                  </ListItem>
+                );
+              })
+            )}
           </List>
         </CardContent>
       </Collapse>
