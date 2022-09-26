@@ -6,6 +6,14 @@ import Posts from './pages/Posts';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 const client = new ApolloClient({
   uri: 'https://graphqlzero.almansi.me/api',
@@ -16,12 +24,15 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/posts" element={<Posts />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/posts" element={<Posts />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>,
 );
