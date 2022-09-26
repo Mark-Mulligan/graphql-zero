@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // Apollo
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
 
 // MUI
 import Container from '@mui/material/Container';
@@ -37,13 +37,27 @@ const GET_POSTS = gql`
   }
 `;
 
+const GET_POST_COMMENTS = gql`
+  query ($id: ID!) {
+    post(id: $id) {
+      comments {
+        data {
+          body
+          email
+        }
+      }
+    }
+  }
+`;
+
 const Posts = () => {
   const { loading, error, data } = useQuery<PostsData>(GET_POSTS);
+  const [getPostComments, commentData] = useLazyQuery(GET_POST_COMMENTS);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  console.log(data);
+  console.log(commentData);
 
   return (
     <Container>
@@ -64,7 +78,9 @@ const Posts = () => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">View Comments</Button>
+                  <Button size="small" onClick={() => getPostComments({ variables: { id: post.id } })}>
+                    View Comments
+                  </Button>
                 </CardActions>
               </Card>
             );
