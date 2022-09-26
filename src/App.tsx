@@ -5,6 +5,7 @@ function App() {
     <div>
       <h1>App</h1>
       <Link to="/posts">View Posts</Link>
+      <Link to="/users">View Users</Link>
     </div>
   );
 }

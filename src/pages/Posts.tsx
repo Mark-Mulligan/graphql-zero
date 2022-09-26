@@ -1,5 +1,4 @@
 // React
-import { useState } from 'react';
 
 // Apollo
 import { gql, useQuery } from '@apollo/client';
@@ -7,10 +6,6 @@ import { gql, useQuery } from '@apollo/client';
 // MUI
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 // Components

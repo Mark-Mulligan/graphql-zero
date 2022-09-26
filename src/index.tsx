@@ -1,13 +1,26 @@
+// React
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import Posts from './pages/Posts';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
+
+// Apollo
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+// React Router
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// MUI
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+
+// Components
+import App from './App';
+import Posts from './pages/Posts';
+import Users from './pages/Users';
+import User from './pages/User';
+
+// CSS
+import './index.css';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,6 +43,8 @@ root.render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/posts" element={<Posts />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/user/:id" element={<User />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
