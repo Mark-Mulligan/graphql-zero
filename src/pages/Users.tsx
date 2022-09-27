@@ -12,6 +12,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 
 // Custom Types
 import { IUserOverview } from '../types/customTypes';
@@ -40,32 +41,36 @@ const Users = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-      <List sx={{ bgcolor: 'background.paper' }}>
-        {data?.users.data.map((user) => {
-          return (
-            <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
-              <ListItem
-                alignItems="center"
-                key={user.id}
-                sx={{ cursor: 'pointer', '&:hover': { background: 'rgba(255, 255, 255, 0.1)' } }}
-              >
-                <ListItemAvatar>
-                  <Avatar alt={user.name}>{user.name[0]}</Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  sx={{}}
-                  primary={
-                    <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
-                      {user.name}
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-          );
-        })}
-      </List>
+    <Container sx={{ paddingTop: 3 }}>
+      <Typography variant="h1" sx={{ fontSize: '2rem', textAlign: 'center' }}>
+        Users
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <List sx={{ bgcolor: 'background.paper' }}>
+          {data?.users.data.map((user) => {
+            return (
+              <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }} key={user.id}>
+                <ListItem
+                  alignItems="center"
+                  sx={{ cursor: 'pointer', '&:hover': { background: 'rgba(255, 255, 255, 0.1)' } }}
+                >
+                  <ListItemAvatar>
+                    <Avatar alt={user.name}>{user.name[0]}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    sx={{}}
+                    primary={
+                      <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                        {user.name}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
+            );
+          })}
+        </List>
+      </Box>
     </Container>
   );
 };

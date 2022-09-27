@@ -39,7 +39,7 @@ const Posts = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Container>
+    <Container sx={{ paddingTop: 3 }}>
       <Typography variant="h1" sx={{ fontSize: '2rem', textAlign: 'center' }}>
         Posts
       </Typography>
