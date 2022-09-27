@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 
 // Components
 import Post from '../components/Post';
+import PageLoader from '../components/PageLoader';
 
 // Custom Types
 import { IPost } from '../types/customTypes';
@@ -35,7 +36,7 @@ const GET_POSTS = gql`
 const Posts = () => {
   const { loading, error, data } = useQuery<PostsData>(GET_POSTS);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <PageLoader />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

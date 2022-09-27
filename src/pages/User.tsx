@@ -11,6 +11,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Grid from '@mui/material/Grid';
 
+// Components
+import PageLoader from '../components/PageLoader';
+
 // Custom Types
 import { IUser } from '../types/customTypes';
 
@@ -60,7 +63,7 @@ const User = () => {
     variables: { id: params.id },
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <PageLoader />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
